@@ -1,0 +1,45 @@
+{% extends "layout.html" %} {% block title %}list delete{% endblock %} {% block head %} {{ super() }}
+{% endblock %}
+{% block content1 %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand">Simple Kanban</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link active" aria-current="page" href="/index/{{uid}}">Dashboard</a>
+                  <a class="nav-link active" aria-current="page" href="/summary/{{uid}}">Summary</a>
+                 <!-- <a class="nav-link active" href="{{url_for('register')}}">Signup</a>-->
+                </div>
+              </div>
+            </div>
+          </nav>
+          {% block message %}{{super()}}{% endblock %}          
+{% block content %}
+    <ul class="list-group list-group-flush">
+        {% for val in d %}
+        
+        <li>
+        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+            
+            <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button"  data-bs-toggle="dropdown" aria-expanded="false">
+                    {{val['card_title']}}
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/{{val['cid']}}/{{uid}}/shiftcard">EDIT</a></li>
+                </ul>
+              </div>
+            <div class="card-body">{{val['content']}}
+              <p class="card-text">
+              {{val['deadline']}}</p>
+            </div>
+          </div>
+        </li> 
+        {% endfor %}<div class="col-5">
+<a href="/{{list_id}}/{{uid}}/delete_list"><button type="button" class="btn btn-danger">Delete List</button></a>
+</div>
+        </ul>
+{% endblock %}{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "layout.html" %} {% block title %}edit card{% endblock %} {% block head %} {{ super() }}
+{% endblock %}          
+{% block content1 %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand">Simple Kanban</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link active" aria-current="page" href="/index/{{uid}}">Dashboard</a>
+                  <a class="nav-link active" aria-current="page" href="/summary/{{uid}}">Summary</a>
+                 <!-- <a class="nav-link active" href="{{url_for('register')}}">Signup</a>-->
+                </div>
+              </div>
+            </div>
+          </nav>
+          {% block message %}{{super()}}{% endblock %}          
+{% block content %}<div class = "container">
+<form action="/{{x.cid}}/{{uid}}/shiftcard" method="POST" id="update-listcard-form">
+    <label for="list" class = "col-sm-2 col-form-label">Select list: </label>
+    <select name="list" id="list">
+        {% for n in clist %}
+        <option value='{{n["lid"]}}'>{{n["list_name"]}}</option>
+        {% endfor %}
+    </select>
+    <div class="mb-3">
+        <label  class = "col-sm-2 col-form-label">Card name: </label>
+        <input type="text" class="form-control" value="{{x.card_title}}" name = "Title"disabled >
+    </div>
+    <div class="mb-3">
+        <label  class = "col-sm-2 col-form-label">Content : </label>
+        <input type="text" class="form-control" value="{{x.content}}" name = "Content" rows="3" disabled/>
+    </div>
+    <label for="date" class="col-sm-2 col-form-label">Deadline Date: </label>
+    <input type="date" class="form-control" id="date" value="{{x.deadline}}" name = "Deadline" disabled/>
+          
+
+     <div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="Flag" value="on" disabled>
+  <input class="form-check-input" type="hidden" id="flexSwitchCheckChecked" name="Flag" value="{{x.flag}}" disabled>
+  <label class="form-check-label" for="flexSwitchCheckChecked">Mark as complete</label>
+</div>
+<div class="col-5">
+<button type="submit" class="btn btn-danger">Shift Card</button>
+</div></form></div>
+<!--
+<div>
+    <p>Card Created : {{x.created}}</p>
+    <p> Last Updated : {{x.last_updated}} </p> 
+</div>-->
+{% endblock %}{% endblock %}

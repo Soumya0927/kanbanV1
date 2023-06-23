@@ -1,0 +1,41 @@
+{% extends "layout.html" %} {% block title %}summary{% endblock %} {% block head %} {{ super() }}
+{% endblock %}          {% with messages = get_flashed_messages(with_categories=true) %} {{super()}}{% endwith %}}
+{% block content1 %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand">Simple Kanban</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  <a class="nav-link active" aria-current="page" href="/index/{{uid}}">Dashboard</a>
+                  <a class="nav-link active" aria-current="page" href="/summary/{{uid}}">Summary</a>
+                 <!-- <a class="nav-link active" href="{{url_for('register')}}">Signup</a>-->
+                </div>
+              </div>
+            </div>
+          </nav>
+
+{% block content %}
+<h1 class="text-danger text-center"><em>Summary</em></h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for key,value in plotlist.items() %}
+<div class="card-deck">
+<div class="card" style="width: 18rem;">
+
+  <div class="card-header"> {{key}}</div>  
+  <img src="../static/imgs/{{key}}.png" class="card-img-top" >
+  <div class="card-body text-primary">
+  	{% for val in value %}
+    <p class="card-text">No. of Tasks Completed : {{val['Completed']}}</p>
+    <p class="card-text">No. of Tasks Incompleted : {{val['Incompleted']}}</p>
+    <p class="card-text">No. of Tasks Passed Deadline : {{val['deadline']}}</p>
+      </div>
+  {% endfor %}
+</div>
+
+</div><br>
+{% endfor %}
+{% endblock %}
+{% endblock %}
